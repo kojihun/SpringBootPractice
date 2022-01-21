@@ -2,15 +2,18 @@ package com.example.demo.controller;
 
 import javax.validation.Valid;
 
+import com.example.demo.dto.User2;
 import com.example.demo.dto.Usere;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController // 해당 Class는 REST API를 처리하는 Controller
@@ -37,6 +40,22 @@ public class ApiController {
             // 응답 body안에 메세지를 전송해준다.
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(sb.toString());
         }
+        System.out.println(user);
+        return user;
+    }
+
+    @GetMapping("") // required는 주소뒤에 파라미터가 없을 경우 null을 보낸다.
+    public User2 get(@RequestParam(required = false) String name, @RequestParam(required = false) Integer age) {
+        User2 user = new User2();
+        user.setName(name);
+        user.setAge(age);
+
+        int a = 10 + age;
+        return user;
+    }
+
+    @PostMapping("")
+    public User2 post(@RequestBody User2 user) {
         System.out.println(user);
         return user;
     }
